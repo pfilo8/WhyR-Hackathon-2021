@@ -3,7 +3,6 @@
 
 ## Table of contents
 * [General info](#general-info)
-* [Metrics](#metrics)
 * [Best solution](#best-solution)
 * [Other approaches](#other-approaches)
 * [Contact](#contact)
@@ -17,10 +16,7 @@
 The Why R? 2021 Hackathon Challenge is about matching name of academic papers in different format.
 Our solution will be scored based on accuracy & F1 of our predictions and based on the creativity of our solution.
 
-## Metrics
-![Metrics screenshot](./outputs/metrics.png)
-
-## Our solution
+## Best solution
 The solution, which was chosen as our final solution uses fuzzy text matching. This method
 is not a typical Machine Learning solution, but after the analysis of the data and Cross Validation results, we found it
 to be both highly accurate and the most stable approach.
