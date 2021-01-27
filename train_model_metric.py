@@ -9,6 +9,7 @@ from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import StratifiedKFold
 
 target = 'label'
+vector_size = '50-better-data'
 
 
 def extract_pair(model, item1, item2):
@@ -30,9 +31,9 @@ df_train['ltable_id'] = 'A_' + df_train['ltable_id'].astype(str)
 df_train['rtable_id'] = 'B_' + df_train['rtable_id'].astype(str)
 df_train['label_metric'] = (df_train['label'] - 1 / 2) * 2
 
-model = Doc2Vec.load('models/doc2vec-50.model')
+model = Doc2Vec.load(f'models/doc2vec-{vector_size}.model')
 algos = [
-    # metric_learn.ITML,
+    metric_learn.ITML,
     # metric_learn.SDML, # Scikit-learn problem
     metric_learn.MMC
 ]
@@ -141,4 +142,4 @@ for algo in algos:
 
     fig.update_layout(yaxis_range=[0, 1])
 
-    fig.write_html(f'outputs/{str(algo)}-50.html')
+    fig.write_html(f'outputs/{str(algo)}-{vector_size}.html')

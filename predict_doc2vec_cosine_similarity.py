@@ -13,8 +13,9 @@ def predict(model, item1, item2, threshold=0.5):
     vec2 = model.docvecs[item2]
     return int(calculate_cosine_similarity(vec1, vec2) > threshold)
 
+vector_size = '50-better-data'
 
-model = Doc2Vec.load('models/doc2vec.model')
+model = Doc2Vec.load(f'models/doc2vec-{vector_size}.model')
 
 threshold = 0.7
 
@@ -28,4 +29,4 @@ df_test['label'] = df_test.apply(
 )
 
 df_test = df_test[['ltable_id', 'rtable_id', 'label']]
-df_test.to_csv('results/submission.csv', index=False)
+df_test.to_csv(f'results/submission-{vector_size}.csv', index=False)

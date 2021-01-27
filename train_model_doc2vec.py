@@ -4,6 +4,19 @@ from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 
 from utils.text import prepare_text
 
+venue_transform = {
+    'acm sigmod record': "sigmod rec",
+    'sigmod record': "sigmod rec",
+    'international conference on management of data': "sigmod conf",
+    'sigmod conference': "sigmod conf",
+    'acm trans . database syst .': "trans",
+    'acm transactions on database systems ( tods )': "trans",
+    'the vldb journal -- the international journal on very large data bases': "vldb",
+    'very large data bases': "vldb",
+    'vldb': "vldb",
+    'vldb j.': "vldb"
+}
+
 table_a = pd.read_csv('data/tableA.csv')
 table_b = pd.read_csv('data/tableB.csv')
 
@@ -11,22 +24,24 @@ df_train = pd.read_csv('data/train.csv')
 df_train['ltable_id'] = 'A_' + df_train['ltable_id'].astype(str)
 df_train['rtable_id'] = 'B_' + df_train['rtable_id'].astype(str)
 
-dataset_a = table_a['title'].apply(prepare_text).values.tolist()
-ids_a = [f'A_{el}' for el in table_a['id']]
-dataset_b = table_b['title'].apply(prepare_text).values.tolist()
-ids_b = [f'B_{el}' for el in table_b['id']]
-dataset = [*dataset_a, *dataset_b]
-ids = [*ids_a, *ids_b]
+table_a['id'] = 'A_' + table_a['id'].astype(str)
+table_b['id'] = 'B_' + table_b['id'].astype(str)
 
-assert len(dataset_a) == len(ids_a)
-assert len(dataset_b) == len(ids_b)
-assert len(dataset) == len(ids)
+dataset = pd.concat([table_a, table_b])
+dataset['year'] = dataset['year'].fillna(0).astype(int).astype(str).replace({'0': ''})
+dataset['venue'] = dataset['venue'].map(venue_transform)
+dataset = dataset.fillna('')
+dataset['text'] = dataset['title'] + ' ' + dataset['authors'] + ' ' + dataset['authors'] + ' ' + dataset['year']
+dataset['text'] = dataset['text'].apply(prepare_text)
 
-documents = [TaggedDocument(doc, [i]) for i, doc in zip(ids, dataset)]
+ids = dataset['id'].values
+texts = dataset['text'].values
+
+documents = [TaggedDocument(doc, [i]) for i, doc in zip(ids, texts)]
 
 model = Doc2Vec(
     documents,
-    vector_size=100,
+    vector_size=50,
     window=2,
     min_count=1,
     hs=1,
@@ -35,4 +50,4 @@ model = Doc2Vec(
     workers=8
 )
 
-model.save('models/doc2vec.model')
+model.save('models/doc2vec-50-better-data.model')

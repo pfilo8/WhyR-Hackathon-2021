@@ -9,7 +9,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import accuracy_score, f1_score
 
 target = 'label'
-vector_size = 50
+vector_size = '50-better-data'
 
 
 def calculate_cosine_similarity(u, v):
