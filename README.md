@@ -44,6 +44,7 @@ Careful preparation of the data appeared to be crucial for high scores. We close
 
 At the last step, we trained **logistic regression**. We achieved **99.16%** of accuracy on 10-fold cross-validation. 
 Logistic regression is not a sophisticated machine learning algorithm. Therefore, we tried more complex models as well.
+We used **T**ree-based **P**ipeline **O**ptimization **T**ool for this purpose. **TPOT** proposed more than a thousand models.
 The best accuracy we were able to get was about **99.32%**. We rejected them because of much higher train accuracy, which may have been caused by overfitting.
 
 ### Doc2Vec + Metric learning / Classification approach
