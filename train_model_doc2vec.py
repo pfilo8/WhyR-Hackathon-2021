@@ -41,13 +41,14 @@ documents = [TaggedDocument(doc, [i]) for i, doc in zip(ids, texts)]
 
 model = Doc2Vec(
     documents,
-    vector_size=50,
-    window=2,
-    min_count=1,
+    dm=0,
+    vector_size=100,
+    window=9,
+    min_count=0,
     hs=1,
     negative=0,
     epochs=400,
     workers=8
 )
 
-model.save('models/doc2vec-50-better-data.model')
+model.save('models/doc2vec-100-min-count-0.model')

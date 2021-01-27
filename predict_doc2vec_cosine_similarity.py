@@ -14,7 +14,7 @@ def predict(model, item1, item2, threshold=0.5):
     return int(calculate_cosine_similarity(vec1, vec2) > threshold)
 
 
-vector_size = '50-better-data'
+vector_size = '100-better-data-window-9'
 
 model = Doc2Vec.load(f'models/doc2vec-{vector_size}.model')
 

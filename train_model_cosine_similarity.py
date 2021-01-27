@@ -1,25 +1,19 @@
 import numpy as np
 import pandas as pd
-import plotly.graph_objects as go
 
 from gensim.models.doc2vec import Doc2Vec
 from plotly.subplots import make_subplots
-from scipy.spatial import distance
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import accuracy_score, f1_score
 
+from utils.plotting import result_trace, result_mean_trace
+
 target = 'label'
-vector_size = '50-better-data'
-
-
-def calculate_cosine_similarity(u, v):
-    return 1 - distance.cosine(u, v)
+vector_size = '100-better-data-window-9'
 
 
 def predict(model, item1, item2, threshold=0.5):
-    vec1 = model.docvecs[item1]
-    vec2 = model.docvecs[item2]
-    return int(calculate_cosine_similarity(vec1, vec2) > threshold)
+    return int(model.docvecs.similarity(item1, item2) > threshold)
 
 
 df_train = pd.read_csv('data/train.csv')
@@ -54,74 +48,14 @@ x = np.arange(n_splits)
 
 fig = make_subplots(rows=1, cols=2, shared_yaxes=True,
                     subplot_titles=['Accuracy', 'F1 Score'])
-
-fig.add_trace(
-    go.Scatter(
-        x=x,
-        y=results_train_acc,
-        mode='lines',
-        name='Accuracy train',
-        marker=dict(
-            color='blue',
-            line=dict(
-                color='blue'
-            )
-        )
-    ),
-    row=1,
-    col=1
-)
-
-fig.add_trace(
-    go.Scatter(
-        x=x,
-        y=results_test_acc,
-        mode='lines+markers',
-        name='Accuracy test',
-        marker=dict(
-            color='red',
-            line=dict(
-                color='red'
-            )
-        )
-    ),
-    row=1,
-    col=1
-)
-
-fig.add_trace(
-    go.Scatter(
-        x=x,
-        y=results_train_f1,
-        mode='lines',
-        name='F1 train',
-        marker=dict(
-            color='blue',
-            line=dict(
-                color='blue'
-            )
-        )
-    ),
-    row=1,
-    col=2
-)
-
-fig.add_trace(
-    go.Scatter(
-        x=x,
-        y=results_test_f1,
-        mode='lines+markers',
-        name='F1 test',
-        marker=dict(
-            color='red',
-            line=dict(
-                color='red'
-            )
-        )
-    ),
-    row=1,
-    col=2
-)
+fig.add_trace(result_trace(x, results_train_acc, 'Accuracy train', 'blue'), row=1, col=1)
+fig.add_trace(result_mean_trace(x, results_train_acc, 'Accuracy train', 'blue'), row=1, col=1)
+fig.add_trace(result_trace(x, results_test_acc, 'Accuracy test', 'red'), row=1, col=1)
+fig.add_trace(result_mean_trace(x, results_test_acc, 'Accuracy test', 'red'), row=1, col=1)
+fig.add_trace(result_trace(x, results_train_f1, 'F1 train', 'blue'), row=1, col=2)
+fig.add_trace(result_mean_trace(x, results_train_f1, 'F1 train', 'blue'), row=1, col=2)
+fig.add_trace(result_trace(x, results_test_f1, 'F1 train', 'red'), row=1, col=2)
+fig.add_trace(result_mean_trace(x, results_test_f1, 'F1 train', 'red'), row=1, col=2)
 
 fig.update_layout(yaxis_range=[0, 1])
 
