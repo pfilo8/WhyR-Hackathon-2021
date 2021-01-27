@@ -5,12 +5,17 @@
 * [General info](#general-info)
 * [Metrics](#metrics)
 * [Best solution](#best-solution)
-* [Other approaches](#another-approaches)
+* [Other approaches](#other-approaches)
 * [Contact](#contact)
 
 ## General info
-Details about the hackathon - something about data etc
-Maybe it is the right place for the cv and acc/f1 explanation as well.
+
+![Hackathon](resources/img/hackathon.jpeg)
+
+> Academic papers are not cited by every researcher in proper format, for academic search engines it is problematic to find citations per each paper. As papers are cited in different formats, also with some typos, matching citations with the title of the papers is a complicated task.
+
+The Why R? 2021 Hackathon Challenge is about matching name of academic papers in different format.
+Our solution will be scored based on accuracy & F1 of our predictions and based on the creativity of our solution.
 
 ## Metrics
 ![Metrics screenshot](./outputs/metrics.png)
