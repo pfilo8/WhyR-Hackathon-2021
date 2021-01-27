@@ -1,3 +1,4 @@
+import joblib
 import metric_learn
 import numpy as np
 import pandas as pd
@@ -11,6 +12,10 @@ from utils.plotting import result_trace, result_mean_trace
 
 target = 'label'
 vector_size = '100-min-count-0'
+
+
+def get_model_name(algo):
+    return str(algo).split('.')[-1][:-2]
 
 
 def extract_pair(model, item1, item2):
@@ -36,11 +41,11 @@ model = Doc2Vec.load(f'models/doc2vec-{vector_size}.model')
 algos = [
     metric_learn.ITML,
     # metric_learn.SDML, # Scikit-learn problem
-    metric_learn.MMC
+    # metric_learn.MMC # Long computations for larger vectors
 ]
 
 for algo in algos:
-    print(f'Current algorithm: {str(algo)}')
+    print(f'Current algorithm: {get_model_name(algo)}')
 
     n_splits = 10
     cv = StratifiedKFold(n_splits=n_splits).split(df_train, df_train[target])
@@ -68,6 +73,12 @@ for algo in algos:
         results_test_acc.append(accuracy_score(y_true_test, y_pred_test))
         results_test_f1.append(f1_score(y_true_test, y_pred_test))
 
+    print('Final train.')
+    pairs, y_pairs = get_x_y_pairs(df_train)
+    metric_model = algo()
+    metric_model.fit(pairs, y_pairs)
+    joblib.dump(metric_model, f'models/{get_model_name(algo)}-{vector_size}.model')
+
     x = np.arange(n_splits)
 
     fig = make_subplots(rows=1, cols=2, shared_yaxes=True,
@@ -83,4 +94,4 @@ for algo in algos:
 
     fig.update_layout(yaxis_range=[0, 1])
 
-    fig.write_html(f'outputs/{str(algo)}-{vector_size}.html')
+    fig.write_html(f'outputs/{get_model_name(algo)}-{vector_size}.html')
