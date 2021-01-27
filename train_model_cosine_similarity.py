@@ -25,7 +25,6 @@ def predict(model, item1, item2, threshold=0.5):
 df_train = pd.read_csv('data/train.csv')
 df_train['ltable_id'] = 'A_' + df_train['ltable_id'].astype(str)
 df_train['rtable_id'] = 'B_' + df_train['rtable_id'].astype(str)
-df_train['label_metric'] = (df_train['label'] - 1 / 2) * 2
 
 model = Doc2Vec.load(f'models/doc2vec-{vector_size}.model')
 
