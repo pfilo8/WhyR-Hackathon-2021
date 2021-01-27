@@ -16,10 +16,41 @@ Maybe it is the right place for the cv and acc/f1 explanation as well.
 ![Metrics screenshot](./outputs/metrics.png)
 
 ## Our solution
-Here should be the description of the model we chose.
-#### Preprocessing steps
+The solution, which was chosen as our final solution uses fuzzy text matching. This method
+is not a typical Machine Learning solution, but after the analysis of the data and Cross Validation results, we found it
+to be both highly accurate and the most stable approach.
 
-#### Model training
+We used Python library called FuzzyWuzzy ([link](https://github.com/seatgeek/fuzzywuzzy)). It uses Levenshtein Distance
+ to calculate the differences between sequences and takes care of string preprocessing: tokenization, matching texts
+ of different lenght and with different order of tokens. The function, which achieves all of those preprocessing steps
+ is called `token_set_ratio`. It was used in our final solution. Instead of just tokenizing the strings, sorting and
+  then pasting the tokens back together, `token_set_ratio` performs a set operation that takes out the common tokens
+  (the intersection) and then makes pairwise comparisons between the following new strings:
+  * s1 = Sorted_tokens_in_intersection
+  * s2 = Sorted_tokens_in_intersection + sorted_rest_of_str1_tokens
+  * s3 = Sorted_tokens_in_intersection + sorted_rest_of_str2_tokens
+This approach gave the best results in 10-fold Cross-Validation, thus it was chosen as final approach. Accuracy and 
+F1 score metrics for optimal threshold are shown below:
+![CV-results-fuzzy](./outputs/cv-fuzzy.png)
+The average Cross-Validation values for accuracy and F1 measure metrics:
+
+    |          | Train | Test  |
+    |:--------:|:-----:|:-----:|
+    | Accuracy | 0.992 | 0.993 |
+    | F1 Score | 0.98  | 0.98  |
+#### Preprocessing steps
+Basic preprocessing steps included encoding latin characters, removing stopwords and changing text to lowercase.
+ During data analysis, we saw that values from columns `authors`, `venue` and `year` are sometimes missing. In those
+cases their values were present in `title` column. FuzzyWuzzy package sorts alphabetically tokens, so we could 
+concatenate the values from all columns into the `title` column without worrying about their order. Moreover we unified
+values from `venue` column to match them between `tableA` and `tableB`.
+
+#### Fuzzy matching
+After preparing the dataset, the similarity scores were calculated using `token_set_ratio` function from FuzzyWuzzy 
+Python package. Then we subtracted the value of the score based on two assumptions:
+* `venue` values must be the same. Otherwise we subtracted the value of 50;
+* `year` values must be equal. Otherwise we subtracted the value of 50.
+If the assumptions were fulfilled, the score value stayed unchanged. 
 
 
 ## Other approaches
