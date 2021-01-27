@@ -87,4 +87,4 @@ The final best model was SVM (RBF kernel + C = 1) on vector differences.
 
 
 ## Contact
-Created by Łukasz Łaszczuk(???@gmail.com), Robert Benke(<robert.benke2@gmail.com>) and Patryk Wielopolski (https://www.linkedin.com/in/patryk-wielopolski/)- feel free to contact us!
+Created by [Łukasz Łaszczuk](https://www.linkedin.com/in/%C5%82ukasz-%C5%82aszczuk-141361187/), [Robert Benke](https://www.linkedin.com/in/robert-benke-396b56175/) and [Patryk Wielopolski](https://www.linkedin.com/in/patryk-wielopolski/)- feel free to contact us!
