@@ -13,7 +13,6 @@ Details about the hackathon - something about data etc
 Maybe it is the right place for the cv and acc/f1 explanation as well.
 
 ## Metrics
-I've tried to add here the html file with acc and f1 but it seems to be too heavy.
 ![Metrics screenshot](./outputs/metrics.png)
 
 ## Our solution
@@ -36,7 +35,7 @@ We decided to use the following string metrics:
  
 Those metrics were used to compare the titles and authors of both articles. 
 
-The next two features were created by the comparison of the year of creation. The first of them encode checked to see if they were identical, whereas the second contained the opposite information. 
+The next two features were created by the comparison of the year of creation. The first of them checke if they were identical, whereas the second contained the opposite information. 
 They seem to be redundant. However, they could be both false when at least one of the articles did not have an assigned year.
 
 The last variable checked whether both articles came from the same venue.
@@ -45,6 +44,7 @@ Careful preparation of the data appeared to be crucial for high scores. We close
 
 At the last step, we trained **logistic regression**. We achieved **99.16%** of accuracy on 10-fold cross-validation. 
 Logistic regression is not a sophisticated machine learning algorithm. Therefore, we tried more complex models as well.
+We used **T**ree-based **P**ipeline **O**ptimization **T**ool for this purpose. **TPOT** proposed more than a thousand models.
 The best accuracy we were able to get was about **99.32%**. We rejected them because of much higher train accuracy, which may have been caused by overfitting.
 
 ### Doc2Vec + Metric learning / Classification approach
@@ -99,4 +99,4 @@ Detailed results:
 
 
 ## Contact
-Created by Łukasz Łaszczuk(???@gmail.com), Robert Benke(<robert.benke2@gmail.com>) and Patryk Wielopolski (https://www.linkedin.com/in/patryk-wielopolski/)- feel free to contact us!
+Created by [Łukasz Łaszczuk](https://www.linkedin.com/in/%C5%82ukasz-%C5%82aszczuk-141361187/), [Robert Benke](https://www.linkedin.com/in/robert-benke-396b56175/) and [Patryk Wielopolski](https://www.linkedin.com/in/patryk-wielopolski/) - feel free to contact us!
