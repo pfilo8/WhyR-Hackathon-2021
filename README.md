@@ -80,10 +80,22 @@ Finally, in order to give final predictions whether two documents are the same a
 approaches, namely:
 * Cosine similarity on vector representation of text pairs
 * Shallow metric learning algorithms on vector representation of text pairs
-* SVM and other shallow ML classification models on sum / difference / concatentation between (of) vector 
+* SVM and other shallow ML classification models on sum / difference / concatenation between (of) vector 
 representations of text pairs
 
-The final best model was SVM (RBF kernel + C = 1) on vector differences.
+The final best model was SVM (RBF kernel + C = 1) on vector differences with the following results obtained on
+10 Fold Stratified Cross Validation.
+
+Averaged results:
+
+|          | Train | Test  |
+|:--------:|:-----:|:-----:|
+| Accuracy | 0.985 | 0.98  |
+| F1 Score | 0.96  | 0.945 |
+
+Detailed results:
+
+![SVM Results](outputs/SVM-100-min-count-0.png)
 
 
 ## Contact

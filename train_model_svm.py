@@ -91,8 +91,8 @@ for c in cs:
     fig.add_trace(result_mean_trace(x, results_test_acc, 'Accuracy test', 'red'), row=1, col=1)
     fig.add_trace(result_trace(x, results_train_f1, 'F1 train', 'blue'), row=1, col=2)
     fig.add_trace(result_mean_trace(x, results_train_f1, 'F1 train', 'blue'), row=1, col=2)
-    fig.add_trace(result_trace(x, results_test_f1, 'F1 train', 'red'), row=1, col=2)
-    fig.add_trace(result_mean_trace(x, results_test_f1, 'F1 train', 'red'), row=1, col=2)
+    fig.add_trace(result_trace(x, results_test_f1, 'F1 test', 'red'), row=1, col=2)
+    fig.add_trace(result_mean_trace(x, results_test_f1, 'F1 test', 'red'), row=1, col=2)
 
     fig.update_layout(yaxis_range=[0, 1])
 
