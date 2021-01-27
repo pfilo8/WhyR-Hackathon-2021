@@ -13,7 +13,6 @@ Details about the hackathon - something about data etc
 Maybe it is the right place for the cv and acc/f1 explanation as well.
 
 ## Metrics
-I've tried to add here the html file with acc and f1 but it seems to be too heavy.
 ![Metrics screenshot](./outputs/metrics.png)
 
 ## Our solution
@@ -36,7 +35,7 @@ We decided to use the following string metrics:
  
 Those metrics were used to compare the titles and authors of both articles. 
 
-The next two features were created by the comparison of the year of creation. The first of them encode checked to see if they were identical, whereas the second contained the opposite information. 
+The next two features were created by the comparison of the year of creation. The first of them checke if they were identical, whereas the second contained the opposite information. 
 They seem to be redundant. However, they could be both false when at least one of the articles did not have an assigned year.
 
 The last variable checked whether both articles came from the same venue.
